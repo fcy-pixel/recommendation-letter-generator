@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升中推薦信生成器 · 基慈小學</title>
+  <title>升中推薦信工具 · 基慈小學</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet" />
@@ -25,11 +25,18 @@
 
   <!-- Header -->
   <header class="bg-gradient-to-r from-blue-950 to-blue-700 text-white shadow-xl">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center gap-4">
-      <div class="text-4xl">📜</div>
-      <div>
-        <h1 class="text-xl font-bold tracking-wide">升中推薦信生成器</h1>
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-4">
+      <img src="/public/logo.png" alt="基慈小學校徽" class="h-14 w-auto drop-shadow-lg" />
+      <div class="flex-1">
+        <h1 class="text-xl font-bold tracking-wide">升中推薦信工具</h1>
         <p class="text-blue-300 text-xs mt-0.5">中華基督教會基慈小學 &nbsp;·&nbsp; 由 Qwen AI 驅動</p>
+      </div>
+      <div class="shrink-0 text-right">
+        <div class="inline-flex items-center gap-1.5 bg-blue-800/60 border border-blue-500/40 rounded-full px-3 py-1.5">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          <span class="text-xs font-mono text-blue-100 tracking-wide">qwen-plus</span>
+        </div>
+        <p class="text-blue-400 text-xs mt-1">Alibaba Cloud</p>
       </div>
     </div>
   </header>
@@ -48,7 +55,7 @@
         <div class="p-5 grid grid-cols-2 gap-4">
           <div>
             <label class="text-xs font-medium text-slate-500 mb-1.5 block">學生姓名 <span class="text-red-400">*</span></label>
-            <input type="text" id="studentName" placeholder="例：朱寶兒"
+            <input type="text" id="studentName" placeholder="例：陳小明"
               class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm transition" />
           </div>
           <div>
@@ -205,7 +212,7 @@
   </main>
 
   <footer class="text-center text-xs text-slate-400 py-6">
-    中華基督教會基慈小學升中推薦信生成器 &nbsp;·&nbsp; Powered by Alibaba Cloud Qwen
+    中華基督教會基慈小學升中推薦信工具 &nbsp;·&nbsp; Powered by Alibaba Cloud Qwen (qwen-plus)
   </footer>
 
   <script>
