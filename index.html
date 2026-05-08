@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>升中推薦信生成器 · 基慈小學</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    .letter-font {
+      font-family: 'Noto Serif TC', "SimSun", "宋體", serif;
+      line-height: 2.5;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+      border-color: #2563eb !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-blue-950 to-blue-700 text-white shadow-xl">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center gap-4">
+      <div class="text-4xl">📜</div>
+      <div>
+        <h1 class="text-xl font-bold tracking-wide">升中推薦信生成器</h1>
+        <p class="text-blue-300 text-xs mt-0.5">中華基督教會基慈小學 &nbsp;·&nbsp; 由 Qwen AI 驅動</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 xl:grid-cols-2 gap-6 items-start">
+
+    <!-- ============================================================ LEFT: Form -->
+    <div class="space-y-5">
+
+      <!-- Student Basic Info -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center gap-2">
+          <span>👤</span>
+          <h2 class="font-semibold text-slate-700 text-sm">學生基本資料</h2>
+        </div>
+        <div class="p-5 grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">學生姓名 <span class="text-red-400">*</span></label>
+            <input type="text" id="studentName" placeholder="例：朱寶兒"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm transition" />
+          </div>
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">性別 <span class="text-red-400">*</span></label>
+            <select id="gender" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm transition">
+              <option value="女">女</option>
+              <option value="男">男</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Student Profile -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center gap-2">
+          <span>⭐</span>
+          <h2 class="font-semibold text-slate-700 text-sm">學生特質與表現</h2>
+        </div>
+        <div class="p-5 space-y-4">
+
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">個人特質 <span class="text-red-400">*</span></label>
+            <textarea id="traits" rows="2"
+              placeholder="例：沉穩，待人有禮，處事謹慎細心，默默耕耘，為同學提供堅實支援"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm resize-none transition"></textarea>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">曾擔任職務</label>
+            <textarea id="positions" rows="2"
+              placeholder="例：五、六年級擔任中文科總監，協助維持學校秩序"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm resize-none transition"></textarea>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">學術表現 <span class="text-red-400">*</span></label>
+            <textarea id="academic" rows="2"
+              placeholder="例：各科成績均表現優良，於六年級考試中文尤其出色"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm resize-none transition"></textarea>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">特別成就 / 項目</label>
+            <textarea id="achievements" rows="2"
+              placeholder="例：STEAM項目展現出卓越的創意與邏輯思維，令人印象深刻"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm resize-none transition"></textarea>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">學習態度</label>
+            <textarea id="attitude" rows="2"
+              placeholder="例：經常在課堂上摘錄筆記，課堂討論時用心聆聽組員意見，並適時提出見解"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm resize-none transition"></textarea>
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">本年度擔任職務</label>
+            <input type="text" id="currentRole" placeholder="例：中文科總監"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm transition" />
+          </div>
+
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">其他補充</label>
+            <textarea id="extra" rows="2"
+              placeholder="任何其他需要在信中特別提及的資料..."
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm resize-none transition"></textarea>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Primary School Info -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center gap-2">
+          <span>🏫</span>
+          <h2 class="font-semibold text-slate-700 text-sm">小學資料</h2>
+        </div>
+        <div class="p-5 space-y-4">
+          <div>
+            <label class="text-xs font-medium text-slate-500 mb-1.5 block">小學名稱</label>
+            <input type="text" id="primarySchool" value="中華基督教會基慈小學"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm transition" />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-medium text-slate-500 mb-1.5 block">校長姓名</label>
+              <input type="text" id="principal" value="趙潔華女士"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm transition" />
+            </div>
+            <div>
+              <label class="text-xs font-medium text-slate-500 mb-1.5 block">信件日期</label>
+              <input type="date" id="letterDate"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm transition" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Target Schools -->
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span>🎯</span>
+            <h2 class="font-semibold text-slate-700 text-sm">目標學校</h2>
+          </div>
+          <button onclick="addSchool()"
+            class="text-xs bg-blue-600 text-white rounded-lg px-3 py-1.5 hover:bg-blue-700 active:bg-blue-800 transition font-medium">
+            + 新增學校
+          </button>
+        </div>
+        <div class="p-5">
+          <div id="schoolList" class="space-y-3"></div>
+          <p class="text-xs text-slate-400 mt-3">每所學校將各自獨立生成一封推薦信。</p>
+        </div>
+      </section>
+
+      <!-- Generate Button -->
+      <button onclick="generateAll()" id="generateBtn"
+        class="w-full bg-gradient-to-r from-blue-800 to-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg hover:from-blue-900 hover:to-blue-700 active:scale-[0.99] transition text-base tracking-wide">
+        ✨ 生成推薦信
+      </button>
+
+    </div>
+    <!-- end LEFT -->
+
+    <!-- ============================================================ RIGHT: Output -->
+    <div class="sticky top-4">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-200 px-5 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span>📄</span>
+            <h2 class="font-semibold text-slate-700 text-sm">生成結果</h2>
+          </div>
+          <div id="outputActions" class="hidden gap-2 flex">
+            <button onclick="printAllLetters()"
+              class="text-xs bg-white border border-slate-300 text-slate-600 rounded-lg px-3 py-1.5 hover:bg-slate-50 transition">
+              🖨️ 列印全部
+            </button>
+          </div>
+        </div>
+
+        <div id="outputArea" class="p-5 max-h-[calc(100vh-160px)] overflow-y-auto">
+          <div class="text-center py-24 text-slate-400">
+            <div class="text-6xl mb-5 opacity-20">📝</div>
+            <p class="text-sm">填寫左側表格後，點擊「生成推薦信」</p>
+            <p class="text-xs mt-2 text-slate-300">每間學校將生成一封獨立推薦信</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end RIGHT -->
+
+  </main>
+
+  <footer class="text-center text-xs text-slate-400 py-6">
+    中華基督教會基慈小學升中推薦信生成器 &nbsp;·&nbsp; Powered by Alibaba Cloud Qwen
+  </footer>
+
+  <script>
+    // ─── State ───────────────────────────────────────────────────────────────
+    let schoolCount = 0;
+    const lettersStore = {};   // key → letter text
+
+    // ─── Init ─────────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      document.getElementById('letterDate').value =
+        `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+
+      addSchool('中華基督教會協和書院', '');
+    });
+
+    // ─── School list ──────────────────────────────────────────────────────────
+    function addSchool(defaultName = '', defaultContact = '') {
+      schoolCount++;
+      const id = schoolCount;
+      const div = document.createElement('div');
+      div.id = `school-${id}`;
+      div.className = 'flex gap-2 items-start bg-slate-50 border border-slate-200 rounded-xl p-3';
+      div.innerHTML = `
+        <div class="flex-1 grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-xs text-slate-500 mb-1 block">目標中學名稱</label>
+            <input type="text" value="${esc(defaultName)}" placeholder="例：中華基督教會協和書院"
+              class="school-name w-full border border-slate-300 rounded-lg px-2.5 py-2 text-sm bg-white transition" />
+          </div>
+          <div>
+            <label class="text-xs text-slate-500 mb-1 block">收件人（老師／校長）</label>
+            <input type="text" value="${esc(defaultContact)}" placeholder="例：呂浩榮"
+              class="school-contact w-full border border-slate-300 rounded-lg px-2.5 py-2 text-sm bg-white transition" />
+          </div>
+        </div>
+        <button onclick="removeSchool(${id})"
+          class="mt-5 text-slate-400 hover:text-red-500 transition text-xl leading-none font-light">×</button>
+      `;
+      document.getElementById('schoolList').appendChild(div);
+    }
+
+    function removeSchool(id) {
+      document.getElementById(`school-${id}`)?.remove();
+    }
+
+    // ─── Helpers ──────────────────────────────────────────────────────────────
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function getFormData() {
+      const dateVal = document.getElementById('letterDate').value;
+      let dateFmt = '';
+      if (dateVal) {
+        const [y, m, d] = dateVal.split('-');
+        dateFmt = `${y}年${parseInt(m)}月${parseInt(d)}日`;
+      }
+      return {
+        name:          document.getElementById('studentName').value.trim(),
+        gender:        document.getElementById('gender').value,
+        traits:        document.getElementById('traits').value.trim(),
+        positions:     document.getElementById('positions').value.trim(),
+        academic:      document.getElementById('academic').value.trim(),
+        achievements:  document.getElementById('achievements').value.trim(),
+        attitude:      document.getElementById('attitude').value.trim(),
+        currentRole:   document.getElementById('currentRole').value.trim(),
+        extra:         document.getElementById('extra').value.trim(),
+        primarySchool: document.getElementById('primarySchool').value.trim(),
+        principal:     document.getElementById('principal').value.trim(),
+        date:          dateFmt,
+      };
+    }
+
+    function getSchools() {
+      return Array.from(document.querySelectorAll('#schoolList > div'))
+        .map(div => ({
+          name:    div.querySelector('.school-name')?.value?.trim() || '',
+          contact: div.querySelector('.school-contact')?.value?.trim() || '',
+        }))
+        .filter(s => s.name);
+    }
+
+    // ─── API call (via backend) ───────────────────────────────────────────────
+    async function generateOneLetter(student, school) {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ student, school }),
+      });
+
+      if (!res.ok) {
+        let msg = `HTTP ${res.status}`;
+        try { msg = (await res.json()).error || msg; } catch (_) {}
+        throw new Error(msg);
+      }
+
+      const data = await res.json();
+      return (data.result || '（無回應）').trim();
+    }
+
+    // ─── UI card builders ─────────────────────────────────────────────────────
+    function createLoadingCard(school) {
+      const card = document.createElement('div');
+      card.className = 'border border-slate-200 rounded-xl overflow-hidden mb-4 last:mb-0';
+      card.innerHTML = `
+        <div class="bg-slate-50 border-b border-slate-200 px-4 py-3">
+          <span class="text-sm font-semibold text-slate-600">致 ${escHtml(school.name)}</span>
+        </div>
+        <div class="flex items-center justify-center gap-3 py-14 text-slate-400">
+          <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span class="text-sm">AI 正在生成推薦信，請稍候…</span>
+        </div>
+      `;
+      return card;
+    }
+
+    function fillLetterCard(card, school, letter, key) {
+      lettersStore[key] = letter;
+      card.innerHTML = `
+        <div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center justify-between gap-3">
+          <span class="text-sm font-semibold text-slate-700 truncate">✅ 致 ${escHtml(school.name)}</span>
+          <div class="flex gap-2 shrink-0">
+            <button id="copy-${key}" onclick="copyLetter('${key}')"
+              class="text-xs bg-white border border-slate-300 text-slate-600 rounded-lg px-3 py-1.5 hover:bg-slate-50 transition">
+              複製
+            </button>
+            <button onclick="printOneLetter('${key}')"
+              class="text-xs bg-white border border-slate-300 text-slate-600 rounded-lg px-3 py-1.5 hover:bg-slate-50 transition">
+              🖨️ 列印
+            </button>
+          </div>
+        </div>
+        <div class="p-6 bg-amber-50 letter-font text-sm text-slate-800">${escHtml(letter)}</div>
+      `;
+    }
+
+    function fillErrorCard(card, school, errMsg) {
+      card.innerHTML = `
+        <div class="bg-red-50 border-b border-red-200 px-4 py-3">
+          <span class="text-sm font-semibold text-red-700">❌ 致 ${escHtml(school.name)}（生成失敗）</span>
+        </div>
+        <div class="p-4 text-red-600 text-sm bg-red-50">${escHtml(errMsg)}</div>
+      `;
+    }
+
+    // ─── Generate all ─────────────────────────────────────────────────────────
+    async function generateAll() {
+      const student = getFormData();
+      if (!student.name) { alert('請填寫學生姓名'); return; }
+      if (!student.traits && !student.academic) {
+        alert('請至少填寫「個人特質」或「學術表現」'); return;
+      }
+
+      const schools = getSchools();
+      if (!schools.length) { alert('請至少新增一所目標學校'); return; }
+
+      const btn = document.getElementById('generateBtn');
+
+      btn.disabled = true;
+      btn.innerHTML = `
+        <svg class="animate-spin inline -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        生成中…（共 ${schools.length} 封）
+      `;
+
+      // Clear previous results
+      const outputArea = document.getElementById('outputArea');
+      outputArea.innerHTML = '';
+      // Clear old letters
+      Object.keys(lettersStore).forEach(k => delete lettersStore[k]);
+
+      // Create loading placeholders
+      const cards = schools.map(school => {
+        const card = createLoadingCard(school);
+        outputArea.appendChild(card);
+        return card;
+      });
+
+      // Generate one by one
+      let successCount = 0;
+      for (let i = 0; i < schools.length; i++) {
+        const key = `k_${Date.now()}_${i}`;
+        try {
+          const letter = await generateOneLetter(student, schools[i]);
+          fillLetterCard(cards[i], schools[i], letter, key);
+          successCount++;
+        } catch (err) {
+          fillErrorCard(cards[i], schools[i], err.message);
+        }
+      }
+
+      if (successCount > 0) {
+        const el = document.getElementById('outputActions');
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '✨ 重新生成';
+    }
+
+    // ─── Copy ─────────────────────────────────────────────────────────────────
+    function copyLetter(key) {
+      const text = lettersStore[key];
+      if (!text) return;
+
+      const doFallback = () => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      };
+
+      const flashBtn = () => {
+        const btn = document.getElementById(`copy-${key}`);
+        if (!btn) return;
+        btn.textContent = '✓ 已複製';
+        btn.classList.add('bg-green-50', 'text-green-600', 'border-green-300');
+        setTimeout(() => {
+          btn.textContent = '複製';
+          btn.classList.remove('bg-green-50', 'text-green-600', 'border-green-300');
+        }, 2000);
+      };
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(flashBtn).catch(doFallback);
+      } else {
+        doFallback();
+        flashBtn();
+      }
+    }
+
+    // ─── Print ────────────────────────────────────────────────────────────────
+    function buildPrintHtml(textArr) {
+      const pages = textArr.map((text, i) => `
+        <div style="page-break-after:${i < textArr.length - 1 ? 'always' : 'avoid'}">
+          <pre style="font-family:'SimSun','宋體',serif;font-size:14pt;line-height:2.6;white-space:pre-wrap;word-break:break-all;margin:0;">${escHtml(text)}</pre>
+        </div>
+      `).join('');
+
+      return `<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <title>升中推薦信</title>
+  <style>
+    body { margin: 2cm 2.5cm; color: #000; background: #fff; }
+    @page { margin: 2cm 2.5cm; }
+  </style>
+</head>
+<body>${pages}</body>
+</html>`;
+    }
+
+    function printOneLetter(key) {
+      const text = lettersStore[key];
+      if (!text) return;
+      const win = window.open('', '_blank');
+      win.document.write(buildPrintHtml([text]));
+      win.document.close();
+      win.onload = () => win.print();
+    }
+
+    function printAllLetters() {
+      const letters = Object.values(lettersStore);
+      if (!letters.length) return;
+      const win = window.open('', '_blank');
+      win.document.write(buildPrintHtml(letters));
+      win.document.close();
+      win.onload = () => win.print();
+    }
+  </script>
+</body>
+</html>
