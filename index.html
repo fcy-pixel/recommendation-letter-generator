@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>升中推薦信工具 · 基慈小學</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8/build/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet" />
   <style>
@@ -351,6 +353,10 @@
               class="text-xs bg-white border border-slate-300 text-slate-600 rounded-lg px-3 py-1.5 hover:bg-slate-50 transition">
               複製
             </button>
+            <button onclick="downloadDocx('${key}', '${esc(school.name)}')"
+              class="text-xs bg-blue-600 text-white rounded-lg px-3 py-1.5 hover:bg-blue-700 transition">
+              📥 DOCX
+            </button>
             <button onclick="printOneLetter('${key}')"
               class="text-xs bg-white border border-slate-300 text-slate-600 rounded-lg px-3 py-1.5 hover:bg-slate-50 transition">
               🖨️ 列印
@@ -462,6 +468,100 @@
         doFallback();
         flashBtn();
       }
+    }
+
+    // ─── Download DOCX ──────────────────────────────────────────────────────────
+    async function downloadDocx(key, schoolName) {
+      const text = lettersStore[key];
+      if (!text) return;
+
+      if (!window.docx) {
+        alert('DOCX 庫未載入，請刷新頁面後重試');
+        return;
+      }
+
+      const { Document, Paragraph, TextRun, AlignmentType, Packer } = window.docx;
+      const FONT = '標楷體';
+      const BODY_SIZE = 28;   // half-points = 14pt
+      const TITLE_SIZE = 38;  // half-points = 19pt
+      const mmTwip = mm => Math.round(mm * 56.6929);
+
+      function run(txt, size) {
+        return new TextRun({
+          text: txt,
+          font: { name: FONT, eastAsia: FONT },
+          size: size || BODY_SIZE,
+        });
+      }
+
+      function para(txt, alignment, size) {
+        return new Paragraph({
+          alignment: alignment,
+          children: [run(txt, size)],
+        });
+      }
+
+      const lines = text.split('\n');
+      const children = [];
+
+      // Leading empty line (matches original)
+      children.push(para('', AlignmentType.LEFT));
+
+      let inSignatureBlock = false;
+      for (const line of lines) {
+        const trimmed = line.trim();
+        const leadingFullWidth = (line.match(/^\u3000+/) || [''])[0].length;
+
+        if (!trimmed) {
+          children.push(para('', AlignmentType.LEFT));
+          continue;
+        }
+
+        if (trimmed === '推薦信') {
+          children.push(para('推薦信', AlignmentType.CENTER, TITLE_SIZE));
+        } else if (trimmed.startsWith('致 ')) {
+          children.push(para(trimmed, AlignmentType.LEFT));
+        } else if (leadingFullWidth >= 5 || inSignatureBlock) {
+          // Signature block (school name, principal, date)
+          inSignatureBlock = true;
+          // Split 謹啟 onto its own right-aligned line if combined
+          if (trimmed.includes('謹啟') && !trimmed.startsWith('謹')) {
+            const parts = trimmed.split('謹啟');
+            children.push(para(parts[0].trim(), AlignmentType.RIGHT));
+            children.push(para('謹啟', AlignmentType.RIGHT));
+          } else {
+            children.push(para(trimmed, AlignmentType.RIGHT));
+          }
+        } else if (leadingFullWidth >= 2) {
+          // Body paragraph with full-width indent, justified
+          children.push(para(line, AlignmentType.BOTH));
+        } else {
+          // Closing paragraph or other content
+          children.push(para(trimmed, AlignmentType.LEFT));
+        }
+      }
+
+      const doc = new Document({
+        sections: [{
+          properties: {
+            page: {
+              size: { width: mmTwip(210), height: mmTwip(297) },
+              margin: {
+                top: mmTwip(25),
+                bottom: mmTwip(25),
+                left: mmTwip(32),
+                right: mmTwip(32),
+              },
+            },
+          },
+          children,
+        }],
+      });
+
+      const studentName = document.getElementById('studentName').value.trim() || '學生';
+      const filename = `推薦信(${studentName})${schoolName}.docx`;
+      const blob = await Packer.toBlob(doc);
+      saveAs(blob, filename);
     }
 
     // ─── Print ────────────────────────────────────────────────────────────────
