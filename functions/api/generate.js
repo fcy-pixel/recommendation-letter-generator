@@ -55,7 +55,7 @@ export async function onRequestPost(context) {
    　　　　　　　　　　${student.date}
 8. 只輸出信件內容，不加任何解釋或標記`;
 
-  const qwenRes = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+  const qwenRes = await fetch('https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
