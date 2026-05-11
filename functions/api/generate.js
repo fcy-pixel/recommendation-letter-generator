@@ -21,10 +21,12 @@ const SYSTEM_PROMPT = `你是一位專業的香港小學行政人員，專門撰
 11. 語氣正式誠懇，措辭符合香港學校文化`;
 
 function buildUserPrompt(student, school) {
+  const pronoun = student.gender === '男' ? '他' : '她';
+  const fixedSentence = `若能取錄${student.name}，本人深信以${pronoun}的能力及性格，在 貴校的培育下，定能大放異彩。`;
   return `目標學校：${school.name}
 收件人：${school.contact || "校長"}
 學生姓名：${student.name}
-性別：${student.gender}（代詞用「${student.gender === '男' ? '他' : '她'}」）
+性別：${student.gender}（第三人稱代詞為「${pronoun}」，全文統一使用「${pronoun}」，禁止使用「男」或「女」作代詞）
 個人特質：${student.traits || "（未提供）"}
 曾擔任職務：${student.positions || "（未提供）"}
 學術表現：${student.academic || "（未提供）"}
@@ -34,7 +36,8 @@ function buildUserPrompt(student, school) {
 補充資料：${student.extra || "無"}
 小學名稱：${student.primarySchool}
 校長姓名：${student.principal}
-日期：${student.date}`;
+日期：${student.date}
+【第三段末句必須一字不差寫成】：${fixedSentence}`;
 }
 
 export async function onRequestPost(context) {
