@@ -17,14 +17,14 @@ const SYSTEM_PROMPT = `你是一位專業的香港小學行政人員，專門撰
 　　　　　　　　　　　　　　　　　　　　　　校 長
 　　　　　　　　　　　　　　　　　　　　　　[校長姓名] 謹啟
 　　　　　　　　　　　　　　　　　　　　　　[日期]
-10. 性別代詞：女生用「女」，男生用「男」（例：「女的能力」「男的表現」）
+10. 性別代詞：女生用「她」，男生用「他」（例：「她的能力」「他的表現」）
 11. 語氣正式誠懇，措辭符合香港學校文化`;
 
 function buildUserPrompt(student, school) {
   return `目標學校：${school.name}
 收件人：${school.contact || "校長"}
 學生姓名：${student.name}
-性別：${student.gender}（代詞用「${student.gender}」）
+性別：${student.gender}（代詞用「${student.gender === '男' ? '他' : '她'}」）
 個人特質：${student.traits || "（未提供）"}
 曾擔任職務：${student.positions || "（未提供）"}
 學術表現：${student.academic || "（未提供）"}
